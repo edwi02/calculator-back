@@ -18,8 +18,8 @@ export class AuthController {
 	  description: 'User has been successfully created.',
 	  type: CreateUserDto,
 	})
-	createUser(@Body() createUserDto: CreateUserDto) {
-	  return this.authService.create(createUserDto);
+	registerUser(@Body() createUserDto: CreateUserDto) {
+	  return this.authService.register(createUserDto);
 	}
 
 	@Post('login')

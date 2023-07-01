@@ -21,7 +21,7 @@ export class AuthService {
         private readonly commonService: CommonService
     ) {}
 
-	public async create(createUserDto: CreateUserDto) {
+	public async register(createUserDto: CreateUserDto) {
         try {
             const { password, ...userData } = createUserDto;
             const user = this.userRespository.create({
@@ -34,14 +34,14 @@ export class AuthService {
             
             return {
                 ...user,
-                token: this.getJetToken({ id: user.id })
+                token: this.getJwtToken({ id: user.id })
             };
         } catch (error) {
             this.commonService.handleErrors(`[AuthService/create]` ,error);
         }
     }
 
-	private getJetToken(payload: JwtPayload) {
+	private getJwtToken(payload: JwtPayload) {
         try {
             const token = this.jwtService.sign( payload );
             return token;
@@ -76,11 +76,6 @@ export class AuthService {
         } catch (error) {
             this.commonService.handleErrors('[[AuthService/login]', error);
         }
-    }
-
-	private getJwtToken( payload: JwtPayload ) {
-        const token = this.jwtService.sign( payload );
-        return token;
     }
 
 
