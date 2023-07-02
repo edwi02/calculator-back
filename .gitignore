@@ -9,6 +9,7 @@
 # Database data
 /mysql-data
 
+
 # Logs
 logs
 *.log
@@ -33,6 +34,8 @@ lerna-debug.log*
 *.launch
 .settings/
 *.sublime-workspace
+.vscode/
+
 
 # IDE - VSCode
 .vscode/*

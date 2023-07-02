@@ -6,7 +6,8 @@ import { ApiProperty } from '@nestjs/swagger';
 export class User {
     @PrimaryGeneratedColumn('uuid')
     @ApiProperty({
-        description: 'UUID'
+        description: 'User id (UUID)',
+        uniqueItems: true
     })
 	id: string;
 
@@ -16,7 +17,7 @@ export class User {
 	username: string;
 
     @Column('varchar', {
-        select: false   
+        select: false
     })
 	password: string;
 
@@ -30,10 +31,14 @@ export class User {
     })
     isDeleted: boolean;
 
-    @CreateDateColumn()
+    @CreateDateColumn({
+        select: false
+    })
     createdAt: Date;
 
-    @UpdateDateColumn()
+    @UpdateDateColumn({
+        select: false
+    })
     updatedAt: Date;
 
 

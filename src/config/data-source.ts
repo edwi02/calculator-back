@@ -20,4 +20,4 @@ export const dsConfig: DataSourceOptions = {
 };
 
 export const dataSource = new DataSource(dsConfig);
-// npm run m:gen -d src/database/migration/new-entity
+// npm run m:gen -d src/database/migrations/new-entity
