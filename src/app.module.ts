@@ -12,6 +12,7 @@ import { AppService } from './app.service';
 import { OperationModule } from './operation/operation.module';
 import { CalculateModule } from './calculate/calculate.module';
 import { RandomOrgModule } from './random-org/random-org.module';
+import { RecordModule } from './record/record.module';
 
 @Module({
 	imports: [
@@ -21,7 +22,8 @@ import { RandomOrgModule } from './random-org/random-org.module';
 		AuthModule,
 		OperationModule,
 		CalculateModule,
-		RandomOrgModule
+		RandomOrgModule,
+		RecordModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

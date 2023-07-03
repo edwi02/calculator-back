@@ -9,22 +9,26 @@ export class PaginationDto {
     @Type( ()=> Number )
     @ApiPropertyOptional({
         default: 50, 
-        description: 'How mamy rows do you need'
+        description: 'How mamy rows do you need?',
+        example: 25
     })
-    limit?: number;
+    limitRows?: number;
 
     @IsOptional()
     @Min(0)
     @Type( ()=> Number )
     @ApiPropertyOptional({
-        description: 'How mamy rows do you want to do'
+        description: 'How many rows do you want to get?',
+        example: 0
     })
-    offset?: number;
+    offsetRows?: number;
 
     @IsOptional()
     @IsIn(['true', 'false'])
     @ApiPropertyOptional({
-        description: 'Filter isActive rows'
+        description: 'Filter isActive rows',
+        enum: ['true', 'false'],
+        example: 'true'
     })
     isActive?: string;
 }

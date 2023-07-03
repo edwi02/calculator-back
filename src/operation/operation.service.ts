@@ -39,10 +39,10 @@ export class OperationService {
 
       const where: ObjectLiteral = {};
 
-      if (isActive) {  
+      if (isActive) {
         where.isActive = isActive === 'true' ? true : false;
       }
-      where.isDeleted = false;     
+      where.isDeleted = false;
 
       const operations = await this.operationRepository.find({
         where,

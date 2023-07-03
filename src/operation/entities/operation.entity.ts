@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Record } from "../../record/entities/record.entity";
 
 @Entity()
 export class Operation {
@@ -33,6 +34,12 @@ export class Operation {
         select: false
     })
     updatedAt: Date;
+
+    @OneToMany(
+        () => Record,
+        (record) =>  record.operation
+    )
+    record: Record[];
 
 
 }

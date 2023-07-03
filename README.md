@@ -39,6 +39,11 @@ Start docker
 $ docker compose up -d
 ```
 
+**Notes about columns names:**
+* Own table columsn use _underscore_name_ standar. Example: user_balance
+* Audit column use _camelCase_ standar. Example: createdAt, updatedAt
+* Manage cperations use _camelCase_ standar. Examples: isDeleted, isActive
+
 ## Running the app
 
 ```bash

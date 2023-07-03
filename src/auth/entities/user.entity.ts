@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { UserStatus } from '../../common/common.constants';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { UserStatus } from '../../common/common.constants';
+import { Record } from '../../record/entities/record.entity';
 
 @Entity()
 export class User {
@@ -41,5 +42,10 @@ export class User {
     })
     updatedAt: Date;
 
+    @OneToMany(
+        () => Record,
+        (record) => record.user
+    )
+    record: Record[];
 
 }

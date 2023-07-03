@@ -23,7 +23,8 @@ export class CreateOperationDto {
     @IsBoolean()
     @ApiPropertyOptional({
         description: 'Active/Inactive operation.',
-        example: true
+        example: true,
+        enum: [true, false]
     })
     isActive?: boolean;
 
