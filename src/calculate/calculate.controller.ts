@@ -2,6 +2,7 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CalculateService } from './calculate.service';
 import { BasicCalculateDto, SquareRootCalculateDto } from './dto';
+import { RandomStringCalculateDto } from './dto/random-string-calculate.dto';
 
 @Controller('calculate')
 @ApiTags('Calculate')
@@ -31,6 +32,11 @@ export class CalculateController {
   @Post('/square-root')
   squareRoot(@Body() squareRootCalculateDto: SquareRootCalculateDto) {
     return this.calculateService.squareRoot(squareRootCalculateDto);
+  }
+
+  @Post('/random-string')
+  randomString(@Body() randomStringCalculateDto: RandomStringCalculateDto) {
+    return this.calculateService.randomString(randomStringCalculateDto);
   }
 
 }

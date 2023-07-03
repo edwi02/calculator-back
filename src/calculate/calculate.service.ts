@@ -1,20 +1,27 @@
 import { Injectable } from '@nestjs/common';
+
 import { BasicCalculateDto, SquareRootCalculateDto } from './dto';
 import { OperationService } from 'src/operation/operation.service';
 import { CommonService } from 'src/common/common.service';
 import { OperationType } from 'src/common/common.constants';
+import { RandomOrgService } from '../random-org/random-org.service';
+import { RandomStringCalculateDto } from './dto/random-string-calculate.dto';
 
 @Injectable()
 export class CalculateService {
   constructor(
     private readonly operationService: OperationService,
-    private readonly commonService: CommonService
+    private readonly commonService: CommonService,
+    private readonly randomOrgService: RandomOrgService
   ) {}
 
   public async additional(basicCalculateDto: BasicCalculateDto) {
     try {
       const { numbers } = basicCalculateDto;
-      return this.executeBasicOperation(OperationType.addition, ...numbers);
+      const result = this.executeBasicOperation(OperationType.addition, ...numbers);
+      return {
+        result
+      };
 
     } catch (error) {
       this.commonService.handleErrors('[[CalculateService/additional]', error);
@@ -24,7 +31,10 @@ export class CalculateService {
   public async subtraction(basicCalculateDto: BasicCalculateDto) {
     try {
       const { numbers } = basicCalculateDto;     
-      return this.executeBasicOperation(OperationType.subtraction, ...numbers);
+      const result = this.executeBasicOperation(OperationType.subtraction, ...numbers);
+      return {
+        result
+      };
 
     } catch (error) {
       this.commonService.handleErrors('[[CalculateService/substraction]', error);
@@ -34,7 +44,10 @@ export class CalculateService {
   public async multiplication(basicCalculateDto: BasicCalculateDto) {
     try {
       const { numbers } = basicCalculateDto;
-      return this.executeBasicOperation(OperationType.multiplication, ...numbers);
+      const result = this.executeBasicOperation(OperationType.multiplication, ...numbers);
+      return {
+        result
+      };
 
     } catch (error) {
       this.commonService.handleErrors('[[CalculateService/multiplication]', error);
@@ -44,7 +57,10 @@ export class CalculateService {
   public async division(basicCalculateDto: BasicCalculateDto) {
     try {
       const { numbers } = basicCalculateDto;
-      return this.executeBasicOperation(OperationType.division, ...numbers);
+      const result = this.executeBasicOperation(OperationType.division, ...numbers);
+      return {
+        result
+      };
 
     } catch (error) {
       this.commonService.handleErrors('[[CalculateService/division]', error);
@@ -54,7 +70,23 @@ export class CalculateService {
   public async squareRoot(squareRootCalculateDto: SquareRootCalculateDto) {
     try {
       const { number } = squareRootCalculateDto;
-      return Math.sqrt(number);
+      const result = Math.sqrt(number);
+      return {
+        result
+      };
+
+    } catch (error) {
+      this.commonService.handleErrors('[[CalculateService/division]', error);
+    }
+  }
+
+  public async randomString(dto: RandomStringCalculateDto) {
+    try {
+
+      const result = await this.randomOrgService.generateStrings({...dto});
+      return {
+        result
+      };
 
     } catch (error) {
       this.commonService.handleErrors('[[CalculateService/division]', error);
