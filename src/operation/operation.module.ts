@@ -15,6 +15,7 @@ import { OperationController } from './operation.controller';
 		CommonModule
   ],
   controllers: [OperationController],
-  providers: [OperationService]
+  providers: [OperationService],
+  exports: [OperationService]
 })
 export class OperationModule {}

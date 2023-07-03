@@ -18,7 +18,7 @@ export class LoginUserDto {
     @MaxLength(50)
     @Matches(
         RegEx.password(), {
-        message: 'The password must have a uppercase, lowercase letter and a number'
+        message: 'password must have a uppercase, lowercase letter and a number'
     })
     @ApiProperty({
         description: 'Password value.',

@@ -10,6 +10,7 @@ import { CommonModule } from './common/common.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { OperationModule } from './operation/operation.module';
+import { CalculateModule } from './calculate/calculate.module';
 
 @Module({
 	imports: [
@@ -17,7 +18,8 @@ import { OperationModule } from './operation/operation.module';
 		TypeOrmModule.forRootAsync(TypeOrmAsync),
 		CommonModule,
 		AuthModule,
-		OperationModule
+		OperationModule,
+		CalculateModule
 	],
 	controllers: [AppController],
 	providers: [AppService],
