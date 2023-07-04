@@ -51,8 +51,8 @@ export class RecordService {
       }
       where.isDeleted = false;
 
-      this.commonService.createWhere(where, 'user_id', { id: userId }, userId );
-      this.commonService.createWhere(where, 'operation_id', { id: operationId }, operationId );
+      this.commonService.createWhere(where, 'user', { id: userId }, userId );
+      this.commonService.createWhere(where, 'operation', { id: operationId }, operationId );
 
       const [records, totalRows] = await this.recordRepository.findAndCount({
         relations: {

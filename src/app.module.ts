@@ -13,6 +13,7 @@ import { OperationModule } from './operation/operation.module';
 import { CalculateModule } from './calculate/calculate.module';
 import { RandomOrgModule } from './random-org/random-org.module';
 import { RecordModule } from './record/record.module';
+import { UserBalanceModule } from './user-balance/user-balance.module';
 
 @Module({
 	imports: [
@@ -24,6 +25,7 @@ import { RecordModule } from './record/record.module';
 		CalculateModule,
 		RandomOrgModule,
 		RecordModule,
+		UserBalanceModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

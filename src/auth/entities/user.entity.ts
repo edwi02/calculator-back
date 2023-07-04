@@ -1,7 +1,16 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { 
+    Column,
+    CreateDateColumn,
+    Entity,
+    OneToMany,
+    OneToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { UserStatus } from '../../common/common.constants';
 import { Record } from '../../record/entities/record.entity';
+import { UserBalance } from '../..//user-balance/entities/user-balance.entity';
 
 @Entity()
 export class User {
@@ -47,5 +56,11 @@ export class User {
         (record) => record.user
     )
     record: Record[];
+
+    @OneToOne(
+        () => UserBalance,
+        (userBalance) => userBalance.user
+    )
+    userBalance: UserBalance;
 
 }

@@ -10,6 +10,8 @@ import { User } from './entities/user.entity';
 
 import { CommonService } from 'src/common/common.service';
 import { JwtPayload } from './interfaces';
+import { UserBalanceService } from 'src/user-balance/user-balance.service';
+
 
 @Injectable()
 export class AuthService {
@@ -18,7 +20,8 @@ export class AuthService {
         @InjectRepository(User)
         private readonly userRespository: Repository<User>,
         private readonly jwtService: JwtService,
-        private readonly commonService: CommonService
+        private readonly commonService: CommonService,
+        private readonly userBalanceService: UserBalanceService
     ) {}
 
 	public async register(createUserDto: CreateUserDto) {
@@ -28,7 +31,11 @@ export class AuthService {
                 ...userData,
                 password: bcrypt.hashSync( password, 10 )
             });
-            await this.userRespository.save(user);
+            const userDb = await this.userRespository.save(user);
+            await this.userBalanceService.create({
+                userId: userDb,
+                balance: 0
+            })
 
             delete user.password;
             
