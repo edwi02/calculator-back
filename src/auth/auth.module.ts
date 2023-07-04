@@ -10,13 +10,11 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { User } from './entities/user.entity';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { UserBalanceModule } from 'src/user-balance/user-balance.module';
 
 @Module({
 	imports: [
 		ConfigModule,
 		CommonModule,
-		UserBalanceModule,
 		TypeOrmModule.forFeature([User]),
 		PassportModule.register({ defaultStrategy: 'jwt' }),
 		JwtModule.registerAsync({

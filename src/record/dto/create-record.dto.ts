@@ -2,7 +2,6 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsNumber, IsPositive, IsString, IsUUID } from "class-validator";
 import { v4 as uuidv4 } from 'uuid';
 
-import { User } from "src/auth/entities/user.entity";
 import { Operation } from "src/operation/entities/operation.entity";
 
 export class CreateRecordDto {
@@ -24,14 +23,6 @@ export class CreateRecordDto {
         example: 74
     })
     userBalance: number;
-
-    @IsNotEmpty()
-    @IsUUID()
-    @ApiProperty({
-        example: uuidv4(),
-        description: 'user Id'
-    })
-    userId: User;
 
     @IsNotEmpty()
     @IsUUID()

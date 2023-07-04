@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, Matches, MaxLength, MinLength } from "class-validator";
 import { RegEx } from "src/common/regular-expressions";
+import { ValidRoles } from "../interfaces";
 
 export class CreateUserDto {
     
@@ -26,5 +27,9 @@ export class CreateUserDto {
         example: 'P4ssw0rd'
     })
     password: string;
+
+    @IsOptional()
+    @IsEnum(ValidRoles, { each: true, message: `Values allowed: [${ Object.values(ValidRoles)}]` })
+    roles: string[] = [ValidRoles.user]
 
 }

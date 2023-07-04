@@ -1,13 +1,17 @@
 import { Module } from '@nestjs/common';
-import { RecordService } from './record.service';
-import { RecordController } from './record.controller';
-import { CommonModule } from 'src/common/common.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { CommonModule } from 'src/common/common.module';
+import { AuthModule } from 'src/auth/auth.module';
+
 import { Record } from './entities/record.entity';
+import { RecordController } from './record.controller';
+import { RecordService } from './record.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Record]),
+    AuthModule,
     CommonModule
   ],
   controllers: [RecordController],

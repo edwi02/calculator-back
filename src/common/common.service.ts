@@ -44,8 +44,12 @@ export class CommonService {
         if ( error.hasOwnProperty('response') ) {
             this.logger.error(`------------------ [web-error] ------------------`);
             const { response } = error;
-            if(response.error === 'Unauthorized') {
-                throw new UnauthorizedException( response.message )
+            if (error.name === 'Unauthorized') {
+                throw new UnauthorizedException( response.message );
+            }
+
+            if (error.name === 'HttpException') {
+                throw new HttpException( response, error.status );
             }
         }
 

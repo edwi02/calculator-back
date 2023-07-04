@@ -5,6 +5,7 @@ import { ObjectLiteral, Repository } from 'typeorm';
 import { CreateRecordDto, FindAllRecordDto } from './dto';
 import { CommonService } from 'src/common/common.service';
 import { Record } from './entities/record.entity';
+import { User } from 'src/auth/entities/user.entity';
 
 @Injectable()
 export class RecordService {
@@ -15,12 +16,12 @@ export class RecordService {
     private readonly commonService: CommonService
   ) { }
 
-  async create(createRecordDto: CreateRecordDto) {
+  async create(user: User, createRecordDto: CreateRecordDto) {
     try {
-      const { userId, operationId, ...toAddData } = createRecordDto;
+      const { operationId, ...toAddData } = createRecordDto;
       
       const record = this.recordRepository.create({
-        user: userId,
+        user: user,
         operation: operationId,
         ...toAddData
       });

@@ -63,4 +63,7 @@ export class User {
     )
     userBalance: UserBalance;
 
+    @Column('simple-array')
+    roles: string[];
+
 }
