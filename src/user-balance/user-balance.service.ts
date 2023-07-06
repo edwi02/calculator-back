@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { HttpStatus, Injectable, Logger, PreconditionFailedException } from '@nestjs/common';
 import { CreateUserBalanceDto } from './dto/create-user-balance.dto';
 import { UpdateUserBalanceDto } from './dto/update-user-balance.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -23,7 +23,7 @@ export class UserBalanceService {
       const { userId, balance } = createUserBalanceDto;
 
       // TODO: Log database
-      this.logger.log(`Add balance: ${ balance } to user ${ userId }. UserId Authorization: ${ user.id }. `);
+      this.logger.log(`Add balance: ${ balance } to user ${ JSON.stringify(userId) }. UserId Authorization: ${ user.id }. `);
 
       const userBalance = this.userBalanceRepository.create({
         user: userId,
@@ -61,12 +61,12 @@ export class UserBalanceService {
     }
   }
 
-  async update(user: User, id: string, updateUserBalanceDto: UpdateUserBalanceDto) {
+  async update(user: User,id: string, updateUserBalanceDto: UpdateUserBalanceDto) {
     try {
       const { balance } = updateUserBalanceDto;
 
       // Valid user exits
-      await this.findOneByUser(id);
+      await this.findOneByUser(user.id);
 
       const userBalance = await this.userBalanceRepository.preload({
         id,
@@ -75,7 +75,7 @@ export class UserBalanceService {
       });
 
       // TODO: Log database
-      this.logger.log(`Add balance: ${ balance } to user ${ id }. UserId Authorization: ${ user.id }. `);
+      this.logger.log(`Update balance: ${ balance } to user ${ id }. UserId Authorization: ${ user.id }. `);
 
       this.commonService.emptyFieldValidation(userBalance, `UserBalance with id: ${ id } not found`, HttpStatus.NOT_FOUND);
       await this.userBalanceRepository.save(userBalance);
@@ -99,6 +99,22 @@ export class UserBalanceService {
       return userBalance;
     } catch (error) {
       this.commonService.handleErrors(`[UserBalanceService/remove]` ,error);
+    }
+  }
+
+  
+  async checkUserBalance(userId: string, operationCost: number) {
+    try {
+      const userBalance = await this.findOneByUser(userId);
+
+      if (userBalance.balance < operationCost) {
+        throw new PreconditionFailedException('Insuffient balance')
+      }
+
+      return userBalance;
+
+    } catch (error) {
+      this.commonService.handleErrors(`[UserBalanceService/checkUserBalance]` ,error);
     }
   }
 }

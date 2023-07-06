@@ -3,6 +3,7 @@ import { IsNotEmpty, IsNumber, IsPositive, IsString, IsUUID } from "class-valida
 import { v4 as uuidv4 } from 'uuid';
 
 import { Operation } from "src/operation/entities/operation.entity";
+import { User } from "src/auth/entities/user.entity";
 
 export class CreateRecordDto {
 
@@ -22,7 +23,7 @@ export class CreateRecordDto {
         description: 'User balance after execute operation (USD).',
         example: 74
     })
-    userBalance: number;
+    balance: number;
 
     @IsNotEmpty()
     @IsUUID()
@@ -31,6 +32,14 @@ export class CreateRecordDto {
         description: 'operation Id'
     })
     operationId: Operation;
+
+    @IsNotEmpty()
+    @IsUUID()
+    @ApiProperty({
+        example: uuidv4(),
+        description: 'user Id'
+    })
+    userId: User;
 
     @IsNotEmpty()
     @IsString()

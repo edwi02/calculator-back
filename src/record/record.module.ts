@@ -15,6 +15,7 @@ import { RecordService } from './record.service';
     CommonModule
   ],
   controllers: [RecordController],
-  providers: [RecordService]
+  providers: [RecordService],
+  exports: [RecordService]
 })
 export class RecordModule {}

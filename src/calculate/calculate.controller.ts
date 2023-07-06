@@ -3,40 +3,66 @@ import { ApiTags } from '@nestjs/swagger';
 import { CalculateService } from './calculate.service';
 import { BasicCalculateDto, SquareRootCalculateDto } from './dto';
 import { RandomStringCalculateDto } from './dto/random-string-calculate.dto';
+import { Auth } from 'src/auth/decorators';
+import { GetUser } from 'src/auth/decorators/get-user.decorator';
 
 @Controller('calculate')
 @ApiTags('Calculate')
 export class CalculateController {
   constructor(private readonly calculateService: CalculateService) {}
 
+  @Auth()
   @Post('/addition')
-  addition(@Body() basicCalculateDto: BasicCalculateDto) {
-    return this.calculateService.additional(basicCalculateDto);
+  addition(
+    @GetUser() user,
+    @Body() basicCalculateDto: BasicCalculateDto
+  ) {
+    return this.calculateService.additional(user, basicCalculateDto);
   }
 
+  @Auth()
   @Post('/subtraction')
-  subtraction(@Body() basicCalculateDto: BasicCalculateDto) {
-    return this.calculateService.subtraction(basicCalculateDto);
+  subtraction(
+    @GetUser() user,
+    @Body() basicCalculateDto: BasicCalculateDto
+  ) {
+    return this.calculateService.subtraction(user, basicCalculateDto);
   }
 
+  @Auth()
   @Post('/multiplication')
-  multiplication(@Body() basicCalculateDto: BasicCalculateDto) {
-    return this.calculateService.multiplication(basicCalculateDto);
+  multiplication(
+    @GetUser() user,
+    @Body() basicCalculateDto: BasicCalculateDto
+  ) {
+    return this.calculateService.multiplication(user, basicCalculateDto);
   }
 
+  @Auth()
   @Post('/division')
-  division(@Body() basicCalculateDto: BasicCalculateDto) {
-    return this.calculateService.division(basicCalculateDto);
+  division(
+    @GetUser() user,
+    @Body() basicCalculateDto: BasicCalculateDto
+  ) {
+    return this.calculateService.division(user, basicCalculateDto);
   }
 
+  @Auth()
   @Post('/square-root')
-  squareRoot(@Body() squareRootCalculateDto: SquareRootCalculateDto) {
-    return this.calculateService.squareRoot(squareRootCalculateDto);
+  squareRoot(
+    @GetUser() user,
+    @Body() squareRootCalculateDto: SquareRootCalculateDto
+  ) {
+    return this.calculateService.squareRoot(user, squareRootCalculateDto);
   }
 
+  @Auth()
   @Post('/random-string')
-  randomString(@Body() randomStringCalculateDto: RandomStringCalculateDto) {
-    return this.calculateService.randomString(randomStringCalculateDto);
+  randomString(
+    @GetUser() user,
+    @Body() randomStringCalculateDto: RandomStringCalculateDto
+  ) {
+    return this.calculateService.randomString(user, randomStringCalculateDto);
   }
 
 }

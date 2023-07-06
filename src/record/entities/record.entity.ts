@@ -27,7 +27,7 @@ export class Record {
     user: User;
     
     @Column({ name: "user_balance" })
-    userBalance: number;
+    balance: number;
 
     @ManyToOne(
         () => Operation,

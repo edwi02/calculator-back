@@ -3,7 +3,6 @@ import { ApiTags } from '@nestjs/swagger';
 import { RecordService } from './record.service';
 import { CreateRecordDto, FindAllRecordDto } from './dto';
 import { Auth } from '../auth/decorators/auth.decorator';
-import { GetUser } from '../auth/decorators/get-user.decorator';
 
 @Controller('record')
 @ApiTags('Record')
@@ -12,11 +11,8 @@ export class RecordController {
 
   @Auth()
   @Post()
-  create(
-    @GetUser() user,
-    @Body() createRecordDto: CreateRecordDto
-  ) {
-    return this.recordService.create(user, createRecordDto);
+  create(@Body() createRecordDto: CreateRecordDto) {
+    return this.recordService.create(createRecordDto);
   }
 
   @Auth()

@@ -6,19 +6,28 @@ import { CommonService } from 'src/common/common.service';
 import { OperationType } from 'src/common/common.constants';
 import { RandomOrgService } from '../random-org/random-org.service';
 import { RandomStringCalculateDto } from './dto/random-string-calculate.dto';
+import { UserBalanceService } from 'src/user-balance/user-balance.service';
+import { User } from 'src/auth/entities/user.entity';
+import { RecordService } from 'src/record/record.service';
+import { CreateRecordDto } from 'src/record/dto';
+import { UpdateUserBalanceDto } from 'src/user-balance/dto';
 
 @Injectable()
 export class CalculateService {
   constructor(
     private readonly operationService: OperationService,
+    private readonly userBalanceService: UserBalanceService,
+    private readonly recordService: RecordService,
     private readonly commonService: CommonService,
     private readonly randomOrgService: RandomOrgService
   ) {}
 
-  public async additional(basicCalculateDto: BasicCalculateDto) {
+  public async additional(user: User, basicCalculateDto: BasicCalculateDto) {
     try {
-      const { numbers } = basicCalculateDto;
-      const result = this.executeBasicOperation(OperationType.addition, ...numbers);
+
+      const { numbers } = basicCalculateDto;     
+      const result = await this.operationProcess(user, OperationType.addition, numbers);
+
       return {
         result
       };
@@ -28,10 +37,12 @@ export class CalculateService {
     }
   }
 
-  public async subtraction(basicCalculateDto: BasicCalculateDto) {
+  public async subtraction(user: User, basicCalculateDto: BasicCalculateDto) {
     try {
+
       const { numbers } = basicCalculateDto;     
-      const result = this.executeBasicOperation(OperationType.subtraction, ...numbers);
+      const result = await this.operationProcess(user, OperationType.subtraction, numbers);
+
       return {
         result
       };
@@ -41,10 +52,10 @@ export class CalculateService {
     }
   }
 
-  public async multiplication(basicCalculateDto: BasicCalculateDto) {
+  public async multiplication(user: User, basicCalculateDto: BasicCalculateDto) {
     try {
-      const { numbers } = basicCalculateDto;
-      const result = this.executeBasicOperation(OperationType.multiplication, ...numbers);
+      const { numbers } = basicCalculateDto;     
+      const result = await this.operationProcess(user, OperationType.multiplication, numbers);
       return {
         result
       };
@@ -54,10 +65,10 @@ export class CalculateService {
     }
   }
    
-  public async division(basicCalculateDto: BasicCalculateDto) {
+  public async division(user: User, basicCalculateDto: BasicCalculateDto) {
     try {
-      const { numbers } = basicCalculateDto;
-      const result = this.executeBasicOperation(OperationType.division, ...numbers);
+      const { numbers } = basicCalculateDto;     
+      const result = await this.operationProcess(user, OperationType.subtraction, numbers);
       return {
         result
       };
@@ -67,10 +78,11 @@ export class CalculateService {
     }
   }
 
-  public async squareRoot(squareRootCalculateDto: SquareRootCalculateDto) {
+  public async squareRoot(user: User, squareRootCalculateDto: SquareRootCalculateDto) {
     try {
       const { number } = squareRootCalculateDto;
-      const result = Math.sqrt(number);
+      const result = Math.sqrt(number).toString();
+      await this.operationProcess(user, OperationType.square_root, [], result);
       return {
         result
       };
@@ -80,10 +92,11 @@ export class CalculateService {
     }
   }
 
-  public async randomString(dto: RandomStringCalculateDto) {
+  public async randomString(user: User, randomStringDto: RandomStringCalculateDto) {
     try {
 
-      const result = await this.randomOrgService.generateStrings({...dto});
+      const result = await this.randomOrgService.generateStrings({...randomStringDto});
+      await this.operationProcess(user, OperationType.random_string, [], result);
       return {
         result
       };
@@ -93,6 +106,39 @@ export class CalculateService {
     }
   }
 
+  private async operationProcess(user: User, operationType: OperationType, numbers: number[], resultCompleted?): Promise<string> {
+    try {
+
+      const operation = await this.operationService.findOne(operationType);
+      const userBalance = await this.userBalanceService.checkUserBalance(user.id, operation.cost);
+
+      let result = resultCompleted;
+      if(resultCompleted === undefined){
+        result = this.executeBasicOperation(operationType, ...numbers).toString();
+      }
+
+      // Save Record
+      const createRecorDto: CreateRecordDto = {
+        amount: operation.cost, 
+        operationId: operation,
+        userId: user,
+        operationResponse: result.toString(),
+        balance: userBalance.balance
+      }
+      await this.recordService.create(createRecorDto);
+
+      // Update User Balance
+      const updateUserBalanceDto: UpdateUserBalanceDto = {
+        balance: (userBalance.balance - operation.cost)
+      }
+      await this.userBalanceService.update(user, userBalance.id, updateUserBalanceDto);
+
+      return result;
+
+    } catch (error) {
+      this.commonService.handleErrors('[[CalculateService/division]', error);
+    }
+  }
   private executeBasicOperation(operation: string, ...numbers: number[]): number {
     switch(operation) {
       case OperationType.addition:
@@ -107,5 +153,6 @@ export class CalculateService {
         return undefined;
     }
   }
+
 
 }
