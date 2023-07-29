@@ -74,7 +74,7 @@ describe('RecordController', () => {
       expect(result.data.length).toEqual(filterDto.limitRows);
     });
   });
-  describe('Update record', () => {
+  describe('Remove record', () => {
     beforeEach(() => {
       serviceRecord.remove = jest.fn().mockResolvedValue(mockRecord);
     });
