@@ -1,6 +1,6 @@
 import { IsOptional } from "class-validator"
 
-export class GenerateRandomRandomOrgDto {
+export class GenerateRandomStringOrgDto {
 
     @IsOptional()
     quantity?: number;

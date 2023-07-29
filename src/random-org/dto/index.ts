@@ -1,2 +1,2 @@
-export { GenerateRandomRandomOrgDto } from "./generate-string-random-org.dto";
+export { GenerateRandomStringOrgDto } from "./generate-string-random-org.dto";
 
