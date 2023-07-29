@@ -15,7 +15,8 @@ export const mockUser = (): User => {
 // DTOs
 export const mockCreateUserDto: CreateUserDto = {
     username: 'Edwin.Qr@gmail.com',
-    password: 'One2.+'
+    password: 'One2.+',
+    roles: ['user']
 };
 
 export const mockLoginUserDto: LoginUserDto = {

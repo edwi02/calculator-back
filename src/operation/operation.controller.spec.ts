@@ -18,10 +18,9 @@ import { HttpStatus, InternalServerErrorException } from '@nestjs/common';
 
 describe('OperationController', () => {
   let controller: OperationController;
-
   let operationService: OperationService;
-
-	const operationRepository = mockOperationRepository;
+  
+  const operationRepository = mockOperationRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({

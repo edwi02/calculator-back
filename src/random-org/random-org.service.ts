@@ -43,7 +43,7 @@ export class RandomOrgService {
   
       return data;
     } catch (error) {
-      this.commonService.handleErrors('[[RandomOrgService/generateStrings]', error);
+      this.commonService.handleErrors('[RandomOrgService/generateStrings]', error);
     }
     
   }

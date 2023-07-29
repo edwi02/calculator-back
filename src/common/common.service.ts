@@ -45,10 +45,16 @@ export class CommonService {
             this.logger.error(`------------------ [web-error] ------------------`);
             const { response } = error;
             if (error.name === 'Unauthorized') {
+                this.logger.error({
+                    detail: response
+                });
                 throw new UnauthorizedException( response.message );
             }
 
             if (error.name === 'HttpException') {
+                this.logger.error({
+                    detail: response
+                });
                 throw new HttpException( response, error.status );
             }
         }

@@ -22,7 +22,7 @@ export class CalculateService {
     private readonly randomOrgService: RandomOrgService
   ) {}
 
-  public async additional(user: User, basicCalculateDto: BasicCalculateDto) {
+  public async addition(user: User, basicCalculateDto: BasicCalculateDto) {
     try {
 
       const { numbers } = basicCalculateDto;     
@@ -68,7 +68,7 @@ export class CalculateService {
   public async division(user: User, basicCalculateDto: BasicCalculateDto) {
     try {
       const { numbers } = basicCalculateDto;     
-      const result = await this.operationProcess(user, OperationType.subtraction, numbers);
+      const result = await this.operationProcess(user, OperationType.division, numbers);
       return {
         result
       };
@@ -136,7 +136,7 @@ export class CalculateService {
       return result;
 
     } catch (error) {
-      this.commonService.handleErrors('[[CalculateService/division]', error);
+      this.commonService.handleErrors('[CalculateService/division]', error);
     }
   }
   private executeBasicOperation(operation: string, ...numbers: number[]): number {

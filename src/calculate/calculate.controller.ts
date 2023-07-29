@@ -17,7 +17,7 @@ export class CalculateController {
     @GetUser() user,
     @Body() basicCalculateDto: BasicCalculateDto
   ) {
-    return this.calculateService.additional(user, basicCalculateDto);
+    return this.calculateService.addition(user, basicCalculateDto);
   }
 
   @Auth()
