@@ -7,7 +7,6 @@ config();
 const configService = new ConfigService();
 
 export const dsConfig: DataSourceOptions = {
-	name: 'calculator',
 	type: 'mysql',
 	host: configService.get('DATABASE_HOST'),
 	port: +configService.get('DATABASE_PORT'),
