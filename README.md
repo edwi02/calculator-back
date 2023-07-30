@@ -32,17 +32,27 @@
 $ npm install
 ```
 
-Install docker
-Start docker
-## Database
+
+## Environment file
+Send email to [Edwin Qr](mailto:edwi02@gmail.com?subject=Enviroment%20file%20calculator-back)
+
+## Database (Mysql)
+Remember ```Install``` and Start docker. Execute follogin command. 
 ```bash
 $ docker compose up -d
 ```
+
 
 **Notes about columns names:**
 * Own table columsn use _underscore_name_ standar. Example: user_balance
 * Audit column use _camelCase_ standar. Example: createdAt, updatedAt
 * Manage cperations use _camelCase_ standar. Examples: isDeleted, isActive
+
+Migration table schema
+```bash
+$ npm run m:run
+```
+
 
 ## Running the app
 
@@ -63,22 +73,10 @@ $ npm run start:prod
 # unit tests
 $ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
 # test coverage
 $ npm run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
