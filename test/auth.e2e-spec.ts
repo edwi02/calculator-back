@@ -25,7 +25,7 @@ describe('AuthController (e2e)', () => {
 	});
 
 	xit('should create a new user (POST)', async () => {
-		console.log(mockCreateUserDto);
+		// console.log(mockCreateUserDto);
 		const response = await request(app.getHttpServer())
 		.post('/auth/register')
 		.send(mockCreateUserDto);

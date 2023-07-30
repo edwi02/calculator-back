@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
-import { BasicCalculateDto, SquareRootCalculateDto } from './dto';
+import { 
+  BasicCalculateDto,
+  RandomStringCalculateDto,
+  SquareRootCalculateDto
+} from './dto';
 import { OperationService } from 'src/operation/operation.service';
 import { CommonService } from 'src/common/common.service';
 import { OperationType } from 'src/common/common.constants';
 import { RandomOrgService } from '../random-org/random-org.service';
-import { RandomStringCalculateDto } from './dto/random-string-calculate.dto';
 import { UserBalanceService } from 'src/user-balance/user-balance.service';
 import { User } from 'src/auth/entities/user.entity';
 import { RecordService } from 'src/record/record.service';

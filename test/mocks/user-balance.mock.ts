@@ -24,7 +24,7 @@ export const mockCreateUserBalanceDto: CreateUserBalanceDto = {
 
 // Repository
 export const mockUserBalanceRepository = jest.fn(() => ({
-    create: jest.fn().mockImplementation((userId, balance) => {
+    create: jest.fn().mockImplementation(() => {
       return {
         id: mockId,
         ...mockUserBalance,

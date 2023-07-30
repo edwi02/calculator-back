@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigService } from '@nestjs/config';
+import { InternalServerErrorException } from '@nestjs/common';
 import { RandomOrgService } from './random-org.service';
 import { CommonService } from 'src/common/common.service';
 import axios from 'axios';
@@ -7,7 +8,6 @@ import {
   mockGenerateRandomDto,
   mockedAxiosRandomOrg
 } from '../../test/mocks/random-org.mock';
-import { InternalServerErrorException } from '@nestjs/common';
 
 jest.mock('axios');
 

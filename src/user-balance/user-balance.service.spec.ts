@@ -86,7 +86,7 @@ describe('UserBalanceService', () => {
     const updateDto = { ...mockCreateUserBalanceDto };
     updateDto.balance = 200;
 
-    jest.spyOn(mockUserBalanceRepository, 'save').mockImplementation((mockUSerBalance: UserBalance) => {
+    jest.spyOn(mockUserBalanceRepository, 'save').mockImplementation((mockUserBalance: UserBalance) => {
       Promise.resolve({
         id: mockId,
         ...mockUserBalance,

@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 
 import { CommonService } from 'src/common/common.service';
-import { GenerateRandomStringOrgDto } from './dto/generate-string-random-org.dto';
+import { GenerateRandomStringOrgDto } from './dto';
 
 @Injectable()
 export class RandomOrgService {

@@ -1,16 +1,19 @@
+import { v4 as uuid } from 'uuid';
 import { CreateOperationDto } from "src/operation/dto";
 import { FindAllOperationDto } from "src/operation/dto/find-all-operation.dto";
 import { Operation } from "src/operation/entities/operation.entity";
 
 // Data
-export const mockOperation = (): Operation => {
-    const operation = new Operation();
-    operation.type  = "addition";
-    operation.isActive       =  true;
-    operation.isDeleted      =  false;
-    operation.cost           = 7;
-
-    return operation;
+const mockId = uuid();
+export const mockOperation: Operation = {
+    type: "addition",
+    isActive: true,
+    isDeleted: false,
+    cost: 7,
+    id: '',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    record: []
 }
 
 // DTOs
@@ -63,7 +66,23 @@ export const mockFindOneOperationResolveSuccess = {
 
 // Repository
 export const mockOperationRepository = {
-    create: jest.fn().mockResolvedValue(mockFindOneOperationResolveSuccess),
+    create: jest.fn().mockImplementation(() => {
+        return {
+          id: mockId,
+          ...mockOperation,
+        };
+      }),
+      save: jest.fn().mockImplementation((mockOperation: Operation) =>
+        Promise.resolve({
+          id: mockId,
+          ...mockOperation,
+        }),
+      ),
+    preload: jest.fn().mockImplementation(() =>
+        Promise.resolve({
+            ...mockOperation,
+        }),
+    ),
     findOne: jest.fn().mockResolvedValue(mockFindOneOperationResolveSuccess),
     find: jest.fn().mockResolvedValue(mockFindAllOperationResolveSuccess),
 };

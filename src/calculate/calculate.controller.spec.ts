@@ -18,6 +18,8 @@ import {
 import { 
   mockUser
 } from '../../test/mocks/auth.mock';
+import { mockUserBalanceRepository } from '../../test/mocks/user-balance.mock';
+import { mockRecordRepository } from '../../test/mocks/record.mock';
 
 
 describe('CalculateController', () => {
@@ -37,12 +39,12 @@ describe('CalculateController', () => {
         UserBalanceService,
         { 
 					provide: getRepositoryToken(UserBalance),
-					useValue: { Symbol: jest.fn() }
+					useValue: mockUserBalanceRepository
 				},
         RecordService,
         { 
 					provide: getRepositoryToken(Record),
-					useValue: { Symbol: jest.fn() }
+					useValue: mockRecordRepository
 				},
         CommonService,
         RandomOrgService,

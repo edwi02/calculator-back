@@ -13,7 +13,7 @@ export const mockRecord: Record = {
     amount: 17,
     user: mockUser(),
     balance: 0,
-    operation: mockOperation(),
+    operation: mockOperation,
     operationResponse: '17',
     date: new Date(),
     isDeleted: false
@@ -23,7 +23,7 @@ export const mockRecord: Record = {
 export const mockCreateRecordDto: CreateRecordDto = {
     amount: 170,
     balance: 2500,
-    operationId: mockOperation(),
+    operationId: mockOperation,
     userId: mockUser(),
     operationResponse: '17'
 }
