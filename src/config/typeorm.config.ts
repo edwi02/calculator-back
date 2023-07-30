@@ -5,6 +5,12 @@ import { join } from 'path';
 export default class TypeOrmConfig {
 	static getOrmConfig(configService: ConfigService): TypeOrmModuleOptions {		
 		return {
+			ssl: process.env.STAGE === 'production',
+			extra: {
+				ssl: process.env.STAGE === 'production'
+				? { PromiseRejectionEvent: false }
+				: null
+			},
 			name: 'calculator',
 			type: 'mysql',
 			host: configService.get('DATABASE_HOST'),
